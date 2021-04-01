@@ -23,8 +23,8 @@ public:
     void up(bool &check);
     void down(bool &check);
 
-    void hamLeft_Right(const int &row, const int &col, const int x, bool &check);
-    void hamUp_Down(const int &row, const int &col, const int x, bool &check);
+    void hamLeft_Right(const int &row, const int &col, const int &x, bool &check);
+    void hamUp_Down(const int &row, const int &col, const int &x, bool &check);
 
     void drawTable();
 

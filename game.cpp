@@ -148,7 +148,7 @@ void Game::down(bool &check)
 //**************************************************
 
 // thuc hien lenh sang trai hoạc phải
-void Game::hamLeft_Right(const int &row, const int &col, const int x, bool &check)
+void Game::hamLeft_Right(const int &row, const int &col, const int &x, bool &check)
 {
     int n;
     if(x == 1) n = 3;
@@ -183,7 +183,7 @@ void Game::hamLeft_Right(const int &row, const int &col, const int x, bool &chec
 }
 
 //thuc hien lenh len hoặc xuống
-void Game::hamUp_Down(const int &row, const int &col, const int x, bool &check)
+void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
 {
     int n;
     if(x == 1) n = 3;
@@ -259,7 +259,7 @@ void Game::khoiTaoThemSo()
             i = rand() % 4;
             j = rand() % 4;
         } while(mangInRa[i][j] != 0);
-        if(rand() % 4 == 9)
+        if(rand() % 10 == 9)
         {
             mangInRa[i][j] = 4;
         }

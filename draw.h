@@ -15,6 +15,7 @@ class Draw
 public:
     void background();
     void drawSquare(const int &so, const int &x, const int &y);
+    SDL_Rect setRect(const int &x, const int &y, const int &h, const int &w);
 private:
     int cell_num = 4;
     const int le = SCREEN_WIDTH / 20;
