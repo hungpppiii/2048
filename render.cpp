@@ -42,7 +42,7 @@ void Render::copyTex(SDL_Texture* texture, const SDL_Rect* dsRect)
     SDL_RenderCopy(m_renderer, texture, NULL, dsRect);
 }
 
-SDL_Texture* Render::loadTexture(const std::string &file)
+SDL_Texture* Render::loadTexturePath(const std::string &file)
 {
 	SDL_Texture *texture = NULL;
 	SDL_Surface *loadedImage = IMG_Load(file.c_str());
@@ -57,4 +57,13 @@ SDL_Texture* Render::loadTexture(const std::string &file)
 		logSDLError(cout, "LoadIMG");
 	}
 	return texture;
+}
+
+SDL_Texture* Render::loadTextureSurface(SDL_Surface* surface)
+{
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(m_renderer, surface);
+    if (texture == NULL){
+			logSDLError(std::cout, "CreateTextureFromSurface");
+		}
+    return texture;
 }

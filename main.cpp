@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "game.h"
 #include "render.h"
+//#include "draw.h"
 
 using namespace std;
 
@@ -12,11 +13,19 @@ int main(int argc, char* argv[])
     Game game;
     Draw draw;
     initSDL();
-
-    draw.background();
+    if(draw.mainMenu() == 0)
+    {
+        draw.background();
+        game.khoiTaoBanDau();
+        g_render.present();
+        game.startGame();
+    }
+    //g_render.present();
+    //SDL_Delay(50000);
+    /*draw.background();
     game.khoiTaoBanDau();
     g_render.present();
-    game.startGame();
+    game.startGame();*/
     quitSDL();
     return 0;
 }

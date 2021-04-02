@@ -13,8 +13,11 @@ using namespace std;
 class Draw
 {
 public:
-    void mainMenu();
+    int mainMenu();
+    bool check(int &x, int &y, const SDL_Rect &rect);
+    SDL_Rect drawText(string &path, SDL_Color &color, const SDL_Rect &drect);
     void background();
+    void drawSquare2_4(const int &so, const int &x, const int &y);
     void drawSquare(const int &so, const int &x, const int &y);
     SDL_Rect setRect(const int &x, const int &y, const int &h, const int &w);
 private:

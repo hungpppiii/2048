@@ -63,10 +63,10 @@ void Game::startGame()
                             return;
                         }
                     }
-                    //khoi tao them so
-                    khoiTaoThemSo();
                     drawTable();
                     g_render.present();
+                    //khoi tao them so
+                    khoiTaoThemSo();
                 }
             }
         }
@@ -265,6 +265,10 @@ void Game::khoiTaoThemSo()
         }
         else
             mangInRa[i][j] = 2;
+        draw.drawSquare2_4(mangInRa[i][j], i, j);//????????
+        g_render.present();
+        SDL_Delay(10);
         draw.drawSquare(mangInRa[i][j], i, j);
+        g_render.present();
     }
 }

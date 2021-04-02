@@ -15,7 +15,8 @@ public:
     void drawRect(SDL_Rect &fillRect);
     void copyTex(SDL_Texture* texture, const SDL_Rect* srcRect, const SDL_Rect* dsRect);
     void copyTex(SDL_Texture* texture, const SDL_Rect* dsRect);
-    SDL_Texture* loadTexture(const std::string &file);
+    SDL_Texture* loadTexturePath(const std::string &file);
+    SDL_Texture* loadTextureSurface(SDL_Surface* surface);
 
 private:
     SDL_Renderer* m_renderer;
