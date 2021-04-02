@@ -13,6 +13,7 @@ using namespace std;
 class Draw
 {
 public:
+    void mainMenu();
     void background();
     void drawSquare(const int &so, const int &x, const int &y);
     SDL_Rect setRect(const int &x, const int &y, const int &h, const int &w);

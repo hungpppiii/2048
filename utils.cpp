@@ -32,8 +32,12 @@ void initSDL()
        SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     //g_window = SDL_CreateWindow(WINDOW_TITLE.c_str(), SDL_WINDOWPOS_CENTERED,
     //   SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    if (g_window == NULL) logSDLError(cout, "CreateWindow", true);
+    if (g_window == NULL)
+            logSDLError(cout, "CreateWindow", true);
 
+    int imgFlags = IMG_INIT_JPG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+        logSDLError(cout, "IMG_Init", true);
 
     g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);

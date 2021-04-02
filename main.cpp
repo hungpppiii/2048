@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
     Game game;
     Draw draw;
     initSDL();
+
     draw.background();
     game.khoiTaoBanDau();
     g_render.present();

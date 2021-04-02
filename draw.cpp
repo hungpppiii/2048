@@ -1,6 +1,11 @@
 #include "draw.h"
 #include "render.h"
 
+void Draw::mainMenu()
+{
+
+}
+
 void Draw::background()
 {
     g_render.setColor(153, 255, 255, 255);
@@ -39,57 +44,57 @@ void Draw::drawSquare(const int &so, const int &x, const int &y)
         }
     case 2:
         {
-            image = g_render.loadTexture("picture//2.bmp");
+            image = g_render.loadTexture("picture//2.jpg");
             break;
         }
     case 4:
         {
-            image = g_render.loadTexture("picture//4.bmp");
+            image = g_render.loadTexture("picture//4.jpg");
             break;
         }
     case 8:
         {
-            image = g_render.loadTexture("picture//8.bmp");
+            image = g_render.loadTexture("picture//8.jpg");
             break;
         }
     case 16:
         {
-            image = g_render.loadTexture("picture//16.bmp");
+            image = g_render.loadTexture("picture//16.jpg");
             break;
         }
     case 32:
         {
-            image = g_render.loadTexture("picture//32.bmp");
+            image = g_render.loadTexture("picture//32.jpg");
             break;
         }
     case 64:
         {
-            image = g_render.loadTexture("picture//64.bmp");
+            image = g_render.loadTexture("picture//64.jpg");
             break;
         }
     case 128:
         {
-            image = g_render.loadTexture("picture//128.bmp");
+            image = g_render.loadTexture("picture//128.jpg");
             break;
         }
     case 256:
         {
-            image = g_render.loadTexture("picture//256.bmp");
+            image = g_render.loadTexture("picture//256.jpg");
             break;
         }
     case 512:
         {
-            image = g_render.loadTexture("picture//512.bmp");
+            image = g_render.loadTexture("picture//512.jpg");
             break;
         }
     case 1024:
         {
-            image = g_render.loadTexture("picture//1024.bmp");
+            image = g_render.loadTexture("picture//1024.jpg");
             break;
         }
     case 2048:
         {
-            image = g_render.loadTexture("picture//2048.bmp");
+            image = g_render.loadTexture("picture//2048.jpg");
             break;
         }
     }

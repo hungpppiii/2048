@@ -1,6 +1,7 @@
 #include "render.h"
 #include "utils.h"
 #include <SDL.h>
+#include <SDL_image.h>
 
 Render g_render;
 
@@ -44,7 +45,7 @@ void Render::copyTex(SDL_Texture* texture, const SDL_Rect* dsRect)
 SDL_Texture* Render::loadTexture(const std::string &file)
 {
 	SDL_Texture *texture = NULL;
-	SDL_Surface *loadedImage = SDL_LoadBMP(file.c_str());
+	SDL_Surface *loadedImage = IMG_Load(file.c_str());
 	if (loadedImage != NULL){
 		texture = SDL_CreateTextureFromSurface(m_renderer, loadedImage);
 		SDL_FreeSurface(loadedImage);
@@ -53,7 +54,7 @@ SDL_Texture* Render::loadTexture(const std::string &file)
 		}
 	}
 	else {
-		logSDLError(cout, "LoadBMP");
+		logSDLError(cout, "LoadIMG");
 	}
 	return texture;
 }
