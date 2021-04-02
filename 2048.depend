@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1617362490 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
+1617383954 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
 	"draw.h"
 	"render.h"
 
@@ -9,13 +9,14 @@
 	"game.h"
 	"render.h"
 
-1617362490 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
+1617382834 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_ttf.h>
 	"utils.h"
 	"game.h"
 	"render.h"
+	"menu.h"
 
 1617349362 source:c:\users\dtd\documents\c++ cb\2048\render.cpp
 	"render.h"
@@ -37,7 +38,7 @@
 	<SDL_ttf.h>
 	<SDL_image.h>
 
-1617362490 c:\users\dtd\documents\c++ cb\2048\draw.h
+1617384038 c:\users\dtd\documents\c++ cb\2048\draw.h
 	<iostream>
 	<stdio.h>
 	<string>
@@ -51,5 +52,17 @@
 	<stdlib.h>
 	<stdio.h>
 	<time.h>
+	"draw.h"
+
+1617383954 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
+	"menu.h"
+	<string>
+
+1617383524 c:\users\dtd\documents\c++ cb\2048\menu.h
+	<iostream>
+	<SDL_ttf.h>
+	<SDL.h>
+	"render.h"
+	"utils.h"
 	"draw.h"
 

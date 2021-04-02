@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "game.h"
 #include "render.h"
-//#include "draw.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -12,8 +12,9 @@ int main(int argc, char* argv[])
 {
     Game game;
     Draw draw;
+    Menu menu;
     initSDL();
-    if(draw.mainMenu() == 0)
+    if(menu.mainMenu() == 0)
     {
         draw.background();
         game.khoiTaoBanDau();

@@ -1,99 +1,28 @@
 #include "draw.h"
 #include "render.h"
 
-int Draw::mainMenu()
+Draw::Draw()
 {
-    SDL_Texture* menu = g_render.loadTexturePath("picture//bkg.jpg");
-    SDL_Rect fill_rect = setRect(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-    g_render.copyTex(menu, &fill_rect);
-    SDL_DestroyTexture(menu);
-
-    int menuItem = 2;
-    SDL_Color color[2];
     color[0] = {127, 255, 212};
     color[1] = {255, 36, 0};
-    string path[menuItem] = {"PLAY GAME", "EXIT"};
-    SDL_Rect dsRect[menuItem], rect[menuItem];
-    for(int i = 0; i < menuItem; i++)
-    {
-        dsRect[i].x = SCREEN_WIDTH / 2;
-        dsRect[i].y = SCREEN_HEIGHT / 6 + i * (SCREEN_HEIGHT / 4 * 3) / menuItem;
-        rect[i] = drawText(path[i], color[0], dsRect[i]);
-    }
-    SDL_Event e;
-    bool select[menuItem] = {false};
-    while(true)
-    {
-        g_render.present();
-        while(SDL_PollEvent(&e))
-        {
-            switch(e.type)
-            {
-            case SDL_QUIT:
-                return 1;
-
-            case SDL_MOUSEMOTION:
-                {
-                    int x = e.motion.x;
-                    int y = e.motion.y;
-
-                    for(int i = 0; i < menuItem; i++)
-                    {
-                        if(check(x, y, rect[i]))
-                        {
-                            if(select[i]){
-                                select[i] = false;
-                                drawText(path[i], color[1], dsRect[i]);
-                            }
-                        }
-                        else
-                        {
-                            if(select[i] == false)
-                            {
-                                select[i] = true;
-                                drawText(path[i], color[0], dsRect[i]);
-                            }
-                        }
-                    }
-                    break;
-                }
-
-            case SDL_MOUSEBUTTONDOWN:
-                {
-                    int x = e.motion.x;
-                    int y = e.motion.y;
-
-                    for(int i = 0; i < menuItem; i++)
-                    {
-                        if(check(x, y, rect[i]))
-                        {
-                            return i;
-                        }
-                    }
-
-                }
-
-            }
-        }
-    }
-    g_render.present();
+    cell_num = 4;
+    le = SCREEN_WIDTH / 20;
+    dienTich = (SCREEN_HEIGHT - 2 * le) / cell_num;
 }
+Draw::~Draw(){}
 
-bool Draw::check(int &x, int &y, const SDL_Rect &rect)
+void Draw::setFont(const string &path, const int &sizeFont)
 {
-    if(x >= rect.x && x <= (rect.x + rect.w) && y >= rect.y && y <= (rect.y + rect.h))
-        return 1;
-    return 0;
+    font = TTF_OpenFont(path.c_str(), sizeFont);
 }
 
-SDL_Rect Draw::drawText(string &path, SDL_Color &color, const SDL_Rect &rect)
+SDL_Rect Draw::drawText(string &path, const int &i, const SDL_Rect &rect)
 {
     SDL_Surface* surface = NULL;
-    TTF_Font* font = NULL;
     SDL_Texture* texture = NULL;
-    font = TTF_OpenFont("QueenieSans.ttf", 90);
+    setFont("QueenieSans.ttf", 90); //...............................................
     //string text = to_string(diem);
-    surface = TTF_RenderText_Solid(font, path.c_str(), color);
+    surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
     texture = g_render.loadTextureSurface(surface);
     SDL_FreeSurface(surface);
     SDL_Rect srcRect, dsRect = rect;
