@@ -7,12 +7,13 @@
 #include <stdio.h>
 #include <time.h>
 #include "draw.h"
+#include "menu.h"
 
 
 class Game
 {
 public:
-    void startGame();
+    void startGame(bool &restart);
     bool winGame();
     bool endGame();
     void highScore();
@@ -35,7 +36,7 @@ private:
     int mangInRa[4][4] = {0};
     int diem = 0;
     Draw draw;
-
+    Menu menu;
 };
 
 #endif // GAME_H_INCLUDED

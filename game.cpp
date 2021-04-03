@@ -4,11 +4,17 @@
 #include "render.h"
 
 
+
 using namespace std;
 
 
-void Game::startGame()
+void Game::startGame(bool &checkRestart)
 {
+    restart();
+    menu.gameMenu();
+    khoiTaoBanDau();
+    //int soItem
+    bool select[2] = {false};
     while(true)
     {
         //khi bảng đầy thì kiểm tra xem đã end game chưa
@@ -22,51 +28,104 @@ void Game::startGame()
         // kiểm tra xem có sự kiện bàn phím không
         while(SDL_PollEvent(&e) != 0)
         {
-
-            if(e.type == SDL_QUIT){
+            switch (e.type)
+            {
+            case SDL_QUIT:
                 return;
-            }
-            else if(e.type == SDL_KEYDOWN){
-                bool check = false;
-                switch(e.key.keysym.sym)
+            case SDL_KEYDOWN:
                 {
-                case SDLK_UP:
+                    bool check = false;
+                    switch(e.key.keysym.sym)
                     {
-                        left(check);
-                        break;
+                    case SDLK_UP:
+                        {
+                            left(check);
+                            break;
+                        }
+                    case SDLK_DOWN:
+                        {
+                            right(check);
+                            break;
+                        }
+                    case SDLK_RIGHT:
+                        {
+                            down(check);
+                            break;
+                        }
+                        break;;
+                    case SDLK_LEFT:
+                        {
+                            up(check);
+                            break;
+                        }
                     }
-                case SDLK_DOWN:
-                    {
-                        right(check);
-                        break;
+
+                    // check xem bảng có thay đổi sau khi nhấn phím
+                    // thay đổi thì tạo thêm số
+                    if(check){
+                        //check xem thắng chưa
+                        // 9 * 1024 = 9216
+                        if(diem >= 9216){
+                            if( winGame() ){
+                                cout << "Victory" << endl;
+                                return;
+                            }
+                        }
+
+                        g_render.setColor(153, 255, 255, 255);
+                        g_render.clears();
+                        draw.table();
+                        draw.menuTable();
+                        menu.gameMenu();
+                        drawTable();
+                        g_render.present();
+
+                        //khoi tao them so
+                        khoiTaoThemSo();
                     }
-                case SDLK_RIGHT:
-                    {
-                        down(check);
-                        break;
-                    }
-                    break;;
-                case SDLK_LEFT:
-                    {
-                        up(check);
-                        break;
-                    }
+
                 }
-                // check xem bảng có thay đổi sau khi nhấn phím
-                // thay đổi thì tạo thêm số
-                if(check){
-                    //check xem thắng chưa
-                    // 9 * 1024 = 9216
-                    if(diem >= 9216){
-                        if( winGame() ){
-                            cout << "Victory" << endl;
+            case SDL_MOUSEMOTION:
+                {
+                    int x = e.motion.x;
+                    int y = e.motion.y;
+
+                    for(int i = 0; i < 2; i++)
+                    {
+                        if(menu.check(x, y, i))
+                        {
+                            if(select[i]){
+                                select[i] = false;
+                                menu.drawText(i, 1);
+                                g_render.present();
+                            }
+                        }
+                        else
+                        {
+                            if(select[i] == false)
+                            {
+                                select[i] = true;
+                                menu.drawText(i, 0);
+                                g_render.present();
+                            }
+                        }
+                    }
+                break;
+                }
+            case SDL_MOUSEBUTTONDOWN:
+                {
+                    int x = e.motion.x;
+                    int y = e.motion.y;
+
+                    for(int i = 0; i < 2; i++)
+                    {
+                    if(menu.check(x, y, i))
+                        {
+                            if(i == 0)
+                                checkRestart = true;//dkjfhdksjdddddddddddddddddddddddddddd
                             return;
                         }
                     }
-                    drawTable();
-                    g_render.present();
-                    //khoi tao them so
-                    khoiTaoThemSo();
                 }
             }
         }
@@ -104,7 +163,10 @@ bool Game::endGame()
 
 void Game::restart()
 {
-
+    for (int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            mangInRa[i][j] = 0;
+    diem = 0;
 }
 
 void Game::highScore()

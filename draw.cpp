@@ -3,24 +3,32 @@
 
 Draw::Draw()
 {
-    color[0] = {127, 255, 212};
-    color[1] = {255, 36, 0};
+    color[0] = {255, 36, 0};
+    color[1] = {255, 215, 0};
     cell_num = 4;
     le = SCREEN_WIDTH / 20;
     dienTich = (SCREEN_HEIGHT - 2 * le) / cell_num;
 }
-Draw::~Draw(){}
+Draw::~Draw()
+{
+    if(font != NULL)
+    {
+        TTF_CloseFont(font);
+        font = NULL;
+    }
+}
 
 void Draw::setFont(const string &path, const int &sizeFont)
 {
     font = TTF_OpenFont(path.c_str(), sizeFont);
 }
 
-SDL_Rect Draw::drawText(string &path, const int &i, const SDL_Rect &rect)
+SDL_Rect Draw::drawText(const string &path, const int &i,
+                         const SDL_Rect &rect, const int &sizeText)
 {
     SDL_Surface* surface = NULL;
     SDL_Texture* texture = NULL;
-    setFont("QueenieSans.ttf", 90); //...............................................
+    setFont("QueenieSans.ttf", sizeText); //...............................................
     //string text = to_string(diem);
     surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
     texture = g_render.loadTextureSurface(surface);
@@ -51,18 +59,31 @@ void Draw::background()
     int h_w = dienTich * cell_num;
     SDL_Rect filled_rect = setRect(le, le, h_w, h_w);
     g_render.fillRect(filled_rect);
+    table();
+    menuTable();
+}
 
+void Draw::table()
+{
+    //g_render.setColor(255, 253, 208, 255);
+    SDL_Rect filled_rect;
+    g_render.setColor(0, 0, 0, 255);
     for(int row = 0; row < cell_num; row++){
         for(int col = 0; col < cell_num; col++){
-            SDL_Rect filled_rect = setRect(le + dienTich * row, le + dienTich * col, dienTich, dienTich);
-            g_render.setColor(0, 0, 204, 255);
+            filled_rect = setRect(le + dienTich * row, le + dienTich * col, dienTich, dienTich);
             g_render.drawRect(filled_rect);
         }
     }
-    //cập nhật thay đổi lên màn hình
-    g_render.present(); //fkjkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 }
 
+void Draw::menuTable()
+{
+    SDL_Rect filled_rect;
+    g_render.setColor(255, 253, 208, 255);
+    //g_render.setColor(204, 204, 255, 255);
+    filled_rect = setRect(le + dienTich * (cell_num + 1), le, dienTich * cell_num, dienTich * 3);
+    g_render.fillRect(filled_rect);
+}
 
 // vẽ ô trong bảng chơi
 

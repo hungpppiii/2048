@@ -14,13 +14,21 @@ int main(int argc, char* argv[])
     Draw draw;
     Menu menu;
     initSDL();
-    if(menu.mainMenu() == 0)
+    menu.backgroundMenu();
+    menu.mainMenu();
+    bool restart = true;
+    SDL_Event e;
+    if(menu.mouseEvent() == 0)
     {
-        draw.background();
-        game.khoiTaoBanDau();
-        g_render.present();
-        game.startGame();
+        while(restart)
+        {
+            restart = false;
+            draw.background();
+            g_render.present();
+            game.startGame(restart);
+        }
     }
+
     //g_render.present();
     //SDL_Delay(50000);
     /*draw.background();

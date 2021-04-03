@@ -15,10 +15,17 @@ class Menu
 public:
     Menu();
     ~Menu();
-    int mainMenu();
-    bool check(int &x, int &y, const SDL_Rect &rect);
+    void drawText(const int &i, const int &color);
+    void backgroundMenu();
+    void mainMenu();
+    void gameMenu();
+    int mouseEvent();
+    bool check(int &x, int &y, const int &i);
 private:
     Draw draw;
+    int soItem;
+    string menuItem[2];
+    SDL_Rect dsRect[2], rect[2];
 };
 
 #endif // MENU_H_INCLUDED
