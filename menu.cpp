@@ -6,13 +6,33 @@ Menu::Menu()
      soItem = 2;
      menuItem[0] = "NEW GAME";
      menuItem[1] = "EXIT";
+     pointItem[0] = "POINT : ";
+     pointItem[1] = "HIGH SCORE : ";
 }
 
 Menu::~Menu(){}
 
-void Menu::drawText(const int &i, const int &color)
+void Menu::drawMenuText(const int &i, const int &color)
 {
     draw.drawText(menuItem[i], color, dsRect[i], 90);
+}
+
+void Menu::drawPointText(const string &point, const string &highScore)
+{
+    string text[2] = {pointItem[0] + point, pointItem[1] + highScore};
+    for(int i = 0; i < 2; i++)
+    {
+        draw.drawText(text[i], 0, point_rect[i], 60);
+    }
+}
+
+void Menu::point()
+{
+    for(int i = 0; i < 2; i++)
+    {
+        point_rect[i].x = SCREEN_WIDTH * 3 / 4;
+        point_rect[i].y = SCREEN_HEIGHT / 6 + i * SCREEN_HEIGHT / 12;
+    }
 }
 
 void Menu::backgroundMenu()

@@ -13,10 +13,9 @@
 class Game
 {
 public:
-    void startGame(bool &restart);
+    void startGame();
     bool winGame();
     bool endGame();
-    void highScore();
     void restart();
 
     void left(bool &check);
@@ -34,7 +33,9 @@ public:
     void khoiTaoThemSo();
 private:
     int mangInRa[4][4] = {0};
+    int highScore = 100; //.................
     int diem = 0;
+    int diemCong = 0;
     Draw draw;
     Menu menu;
 };

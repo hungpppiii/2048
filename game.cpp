@@ -8,12 +8,14 @@
 using namespace std;
 
 
-void Game::startGame(bool &checkRestart)
+void Game::startGame()
 {
-    restart();
     menu.gameMenu();
+    menu.point();
+    menu.drawPointText(to_string(diem), to_string(highScore));
     khoiTaoBanDau();
     //int soItem
+    bool check;
     bool select[2] = {false};
     while(true)
     {
@@ -34,28 +36,29 @@ void Game::startGame(bool &checkRestart)
                 return;
             case SDL_KEYDOWN:
                 {
-                    bool check = false;
+                    diemCong = 0;
+                    check = false;
                     switch(e.key.keysym.sym)
                     {
                     case SDLK_UP:
                         {
-                            left(check);
+                            up(check);
                             break;
                         }
                     case SDLK_DOWN:
                         {
-                            right(check);
+                            down(check);
                             break;
                         }
                     case SDLK_RIGHT:
                         {
-                            down(check);
+                            right(check);
                             break;
                         }
                         break;;
                     case SDLK_LEFT:
                         {
-                            up(check);
+                            left(check);
                             break;
                         }
                     }
@@ -65,10 +68,17 @@ void Game::startGame(bool &checkRestart)
                     if(check){
                         //check xem thắng chưa
                         // 9 * 1024 = 9216
-                        if(diem >= 9216){
-                            if( winGame() ){
-                                cout << "Victory" << endl;
-                                return;
+                        if(diemCong > 0){
+                            diem += diemCong;
+                            if(diem > highScore)
+                            {
+                                highScore = diem;
+                            }
+                            if(diem >= 9216){
+                                if( winGame() ){
+                                    cout << "Victory" << endl;
+                                    return;
+                                }
                             }
                         }
 
@@ -76,6 +86,7 @@ void Game::startGame(bool &checkRestart)
                         g_render.clears();
                         draw.table();
                         draw.menuTable();
+                        menu.drawPointText(to_string(diem), to_string(highScore));
                         menu.gameMenu();
                         drawTable();
                         g_render.present();
@@ -96,7 +107,7 @@ void Game::startGame(bool &checkRestart)
                         {
                             if(select[i]){
                                 select[i] = false;
-                                menu.drawText(i, 1);
+                                menu.drawMenuText(i, 1);
                                 g_render.present();
                             }
                         }
@@ -105,7 +116,7 @@ void Game::startGame(bool &checkRestart)
                             if(select[i] == false)
                             {
                                 select[i] = true;
-                                menu.drawText(i, 0);
+                                menu.drawMenuText(i, 0);
                                 g_render.present();
                             }
                         }
@@ -122,8 +133,10 @@ void Game::startGame(bool &checkRestart)
                     if(menu.check(x, y, i))
                         {
                             if(i == 0)
-                                checkRestart = true;//dkjfhdksjdddddddddddddddddddddddddddd
-                            return;
+                                restart();
+                                //g_render.present();
+                            else
+                                return;
                         }
                     }
                 }
@@ -167,11 +180,8 @@ void Game::restart()
         for(int j = 0; j < 4; j++)
             mangInRa[i][j] = 0;
     diem = 0;
-}
-
-void Game::highScore()
-{
-
+    drawTable();
+    khoiTaoBanDau();
 }
 
 //++++++++++++++++++++++++++++++++++++++++
@@ -221,7 +231,7 @@ void Game::hamLeft_Right(const int &row, const int &col, const int &x, bool &che
             //2 ô gần nhất có giá trị bằng nhau và khác 0 thì cộng lại
             if(mangInRa[row][col] == mangInRa[row][j]){
             mangInRa[row][col] = mangInRa[row][col] * 2;
-            diem += mangInRa[row][col];
+            diemCong += mangInRa[row][col];
             check = true;
             mangInRa[row][j] = 0;
             hamLeft_Right(row, col+x, x, check);
@@ -254,7 +264,7 @@ void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
         if(mangInRa[row][col]){
             if(mangInRa[row][col] == mangInRa[i][col]){
             mangInRa[row][col] = mangInRa[row][col] * 2;
-            diem += mangInRa[row][col];
+            diemCong += mangInRa[row][col];
             check = true;
             mangInRa[i][col] = 0;
             hamUp_Down(row+x, col, x, check);

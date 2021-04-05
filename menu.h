@@ -15,7 +15,9 @@ class Menu
 public:
     Menu();
     ~Menu();
-    void drawText(const int &i, const int &color);
+    void drawMenuText(const int &i, const int &color);
+    void drawPointText(const string &point, const string &highScore);
+    void point();
     void backgroundMenu();
     void mainMenu();
     void gameMenu();
@@ -24,8 +26,8 @@ public:
 private:
     Draw draw;
     int soItem;
-    string menuItem[2];
-    SDL_Rect dsRect[2], rect[2];
+    string menuItem[2], pointItem[2];
+    SDL_Rect dsRect[2], rect[2], point_rect[2];
 };
 
 #endif // MENU_H_INCLUDED

@@ -87,7 +87,7 @@ void Draw::menuTable()
 
 // vẽ ô trong bảng chơi
 
-void Draw::drawSquare2_4(const int &so, const int &x, const int &y)
+void Draw::drawSquare2_4(const int &so, const int &y, const int &x)
 {
     SDL_Texture* image = NULL;
     int h_w = dienTich / 2 ;
@@ -108,7 +108,7 @@ void Draw::drawSquare2_4(const int &so, const int &x, const int &y)
     SDL_DestroyTexture(image);
 }
 
-void Draw::drawSquare(const int &so, const int &x, const int &y)
+void Draw::drawSquare(const int &so, const int &y, const int &x)
 {
     SDL_Texture* image = NULL;
     int h_w = dienTich - 2;  // -2 để ko che viền ô

@@ -22,8 +22,8 @@ public:
     void table();
     void menuTable();
 
-    void drawSquare2_4(const int &so, const int &x, const int &y);
-    void drawSquare(const int &so, const int &x, const int &y);
+    void drawSquare2_4(const int &so, const int &y, const int &x);
+    void drawSquare(const int &so, const int &y, const int &x);
     SDL_Rect setRect(const int &x, const int &y, const int &h, const int &w);
 private:
     int cell_num;

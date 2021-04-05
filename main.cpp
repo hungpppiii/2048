@@ -16,17 +16,11 @@ int main(int argc, char* argv[])
     initSDL();
     menu.backgroundMenu();
     menu.mainMenu();
-    bool restart = true;
     SDL_Event e;
     if(menu.mouseEvent() == 0)
     {
-        while(restart)
-        {
-            restart = false;
-            draw.background();
-            g_render.present();
-            game.startGame(restart);
-        }
+        draw.background();
+        game.startGame();
     }
 
     //g_render.present();
