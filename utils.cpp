@@ -1,8 +1,8 @@
-#include "render.h"
 #include "utils.h"
 
 extern const int SCREEN_WIDTH = 1300;
 extern const int SCREEN_HEIGHT = 700;
+
 extern const string WINDOW_TITLE = "GAME 2048";
 
 SDL_Window* g_window = NULL;

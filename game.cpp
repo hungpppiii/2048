@@ -1,20 +1,14 @@
-#include <iostream>
-#include "draw.h"
 #include "game.h"
-#include "render.h"
-
-
-
-using namespace std;
-
 
 void Game::startGame()
 {
+    mangInRa[0][3] = 1024;
+    mangInRa[0][2] = 1024;
     menu.gameMenu();
-    menu.point();
-    menu.drawPointText(to_string(diem), to_string(highScore));
+
+    drawTable();
     khoiTaoBanDau();
-    //int soItem
+
     bool check;
     bool select[2] = {false};
     while(true)
@@ -22,10 +16,10 @@ void Game::startGame()
         //khi bảng đầy thì kiểm tra xem đã end game chưa
         if(viTriTrong() == 0){
             if(endGame()){
-                cout << "game over!!!";
-                return;
+                draw.gameOver_WinGame(false);
             }
         }
+
         SDL_Event e;
         // kiểm tra xem có sự kiện bàn phím không
         while(SDL_PollEvent(&e) != 0)
@@ -74,25 +68,26 @@ void Game::startGame()
                             {
                                 highScore = diem;
                             }
-                            if(diem >= 9216){
+                            drawTable();
+
+                            //khoi tao them so
+                            khoiTaoThemSo();
+                            if(diem >= 0 * 9216){
                                 if( winGame() ){
-                                    cout << "Victory" << endl;
-                                    return;
+                                    draw.gameOver_WinGame(true);
+
+                                    if(menu.mouseEvent() == 0)
+                                        restart();
+                                    else
+                                        return;
                                 }
                             }
                         }
-
-                        g_render.setColor(153, 255, 255, 255);
-                        g_render.clears();
-                        draw.table();
-                        draw.menuTable();
-                        menu.drawPointText(to_string(diem), to_string(highScore));
-                        menu.gameMenu();
-                        drawTable();
-                        g_render.present();
-
-                        //khoi tao them so
-                        khoiTaoThemSo();
+                        else {
+                            drawTable();
+                            //khoi tao them so
+                            khoiTaoThemSo();
+                        }
                     }
 
                 }
@@ -133,8 +128,10 @@ void Game::startGame()
                     if(menu.check(x, y, i))
                         {
                             if(i == 0)
+                            {
                                 restart();
-                                //g_render.present();
+                                select[i] = true;
+                            }
                             else
                                 return;
                         }
@@ -290,11 +287,14 @@ void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
 // vẽ lại bảng sau khi nhấn phím
 void Game::drawTable()
 {
-        for(int j = 0; j < 4; j++){
-            for(int i = 0; i < 4; i++){
-                draw.drawSquare(mangInRa[i][j], i, j);
-            }
+    draw.background();
+    menu.drawGameMenu(to_string(diem), to_string(highScore));
+    for(int j = 0; j < 4; j++){
+        for(int i = 0; i < 4; i++){
+            draw.drawSquare(mangInRa[i][j], i, j);
         }
+    }
+    g_render.present();
 }
 
 
@@ -337,9 +337,7 @@ void Game::khoiTaoThemSo()
         }
         else
             mangInRa[i][j] = 2;
-        draw.drawSquare2_4(mangInRa[i][j], i, j);//????????
-        g_render.present();
-        SDL_Delay(10);
+        SDL_Delay(5);
         draw.drawSquare(mangInRa[i][j], i, j);
         g_render.present();
     }

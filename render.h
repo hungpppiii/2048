@@ -1,8 +1,10 @@
 #ifndef RENDER_H_INCLUDED
 #define RENDER_H_INCLUDED
 
+#include <SDL_image.h>
 #include <SDL.h>
 #include <string>
+#include "utils.h"
 
 class Render
 {

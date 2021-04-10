@@ -1,10 +1,7 @@
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
 
-#include <iostream>
-#include <SDL.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <time.h>
 #include "draw.h"
 #include "menu.h"

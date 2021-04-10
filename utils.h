@@ -2,6 +2,7 @@
 #define UTILS_H_INCLUDED
 
 #include <iostream>
+#include "render.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>

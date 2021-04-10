@@ -1,13 +1,13 @@
 #include "draw.h"
-#include "render.h"
 
 Draw::Draw()
 {
-    color[0] = {255, 36, 0};
-    color[1] = {255, 215, 0};
+    color[0] = {255, 36, 0, 255};
+    color[1] = {255, 215, 0, 255};
     cell_num = 4;
-    le = SCREEN_WIDTH / 20;
-    dienTich = (SCREEN_HEIGHT - 2 * le) / cell_num;
+    leTrai = SCREEN_WIDTH / 20;
+    leTren = 1.5 * leTrai;
+    dienTich = (SCREEN_HEIGHT - 2 * leTrai) / cell_num;
 }
 Draw::~Draw()
 {
@@ -18,10 +18,23 @@ Draw::~Draw()
     }
 }
 
+void Draw::gameOver_WinGame(const bool &win)
+{
+    SDL_Rect game_rect;
+    game_rect.x = leTrai * 3;
+    game_rect.y = leTren / 6;
+    if(win)
+        drawText("VICTORY!!!", 0, game_rect, 90);
+    else
+        drawText("GAME OVER!!!", 0, game_rect, 90);
+        g_render.present();
+}
+
 void Draw::setFont(const string &path, const int &sizeFont)
 {
     font = TTF_OpenFont(path.c_str(), sizeFont);
 }
+
 
 SDL_Rect Draw::drawText(const string &path, const int &i,
                          const SDL_Rect &rect, const int &sizeText)
@@ -29,7 +42,6 @@ SDL_Rect Draw::drawText(const string &path, const int &i,
     SDL_Surface* surface = NULL;
     SDL_Texture* texture = NULL;
     setFont("QueenieSans.ttf", sizeText); //...............................................
-    //string text = to_string(diem);
     surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
     texture = g_render.loadTextureSurface(surface);
     SDL_FreeSurface(surface);
@@ -39,7 +51,6 @@ SDL_Rect Draw::drawText(const string &path, const int &i,
     srcRect.x = 0;
     srcRect.y = 0;
 
-    dsRect.x -= srcRect.w / 2;
     dsRect.h = srcRect.h;
     dsRect.w = srcRect.w;
 
@@ -56,9 +67,10 @@ void Draw::background()
     g_render.clears();
 
     g_render.setColor(255, 255, 102, 255);
-    int h_w = dienTich * cell_num;
-    SDL_Rect filled_rect = setRect(le, le, h_w, h_w);
-    g_render.fillRect(filled_rect);
+    /*int h_w = dienTich * cell_num;
+    SDL_Rect filled_rect = setRect(leTrai, leTren, h_w, h_w);
+    g_render.fillRect(filled_rect);*/
+
     table();
     menuTable();
 }
@@ -66,59 +78,36 @@ void Draw::background()
 void Draw::table()
 {
     //g_render.setColor(255, 253, 208, 255);
-    SDL_Rect filled_rect;
+    SDL_Rect rect;
     g_render.setColor(0, 0, 0, 255);
     for(int row = 0; row < cell_num; row++){
         for(int col = 0; col < cell_num; col++){
-            filled_rect = setRect(le + dienTich * row, le + dienTich * col, dienTich, dienTich);
-            g_render.drawRect(filled_rect);
+            rect = setRect(leTrai + dienTich * row, leTren + dienTich * col, dienTich, dienTich);
+            g_render.drawRect(rect);
         }
     }
 }
 
 void Draw::menuTable()
 {
-    SDL_Rect filled_rect;
+    SDL_Rect fill_rect;
     g_render.setColor(255, 253, 208, 255);
-    //g_render.setColor(204, 204, 255, 255);
-    filled_rect = setRect(le + dienTich * (cell_num + 1), le, dienTich * cell_num, dienTich * 3);
-    g_render.fillRect(filled_rect);
+    fill_rect = setRect(leTrai + dienTich * (cell_num + 1.2), leTren, dienTich * cell_num, dienTich * 3);
+    g_render.fillRect(fill_rect);
 }
 
-// vẽ ô trong bảng chơi
-
-void Draw::drawSquare2_4(const int &so, const int &y, const int &x)
-{
-    SDL_Texture* image = NULL;
-    int h_w = dienTich / 2 ;
-    SDL_Rect filled_rect = setRect(le + dienTich / 2 * x + 1, le + dienTich / 2 * y + 1, h_w, h_w) ;
-    switch(so)
-    {
-    case 2:
-        {
-            image = g_render.loadTexturePath("picture//2.jpg");
-            break;
-        }
-    case 4:
-        {
-            image = g_render.loadTexturePath("picture//4.jpg");
-            break;
-        }
-    }
-    SDL_DestroyTexture(image);
-}
 
 void Draw::drawSquare(const int &so, const int &y, const int &x)
 {
     SDL_Texture* image = NULL;
     int h_w = dienTich - 2;  // -2 để ko che viền ô
-    SDL_Rect filled_rect = setRect(le + dienTich * x + 1, le + dienTich * y + 1, h_w, h_w) ;
+    SDL_Rect rect = setRect(leTrai + dienTich * x + 1, leTren + dienTich * y + 1, h_w, h_w) ;
     switch(so)
     {
     case 0:
         {
             g_render.setColor(255, 255, 102, 255);
-            g_render.fillRect(filled_rect);
+            g_render.fillRect(rect);
             return;
         }
     case 2:
@@ -179,7 +168,7 @@ void Draw::drawSquare(const int &so, const int &y, const int &x)
     }
 
     // đưa ảnh từ texture vào màn hình, ảnh co dãn theo kich thuoc
-    g_render.copyTex(image, &filled_rect);
+    g_render.copyTex(image, &rect);
     //cập nhật thay đổi lên màn hình
     SDL_DestroyTexture(image);
     //SDL_RenderPresent(renderer);
@@ -187,10 +176,10 @@ void Draw::drawSquare(const int &so, const int &y, const int &x)
 
 SDL_Rect Draw::setRect(const int &x, const int &y, const int &h, const int &w)
 {
-    SDL_Rect fill_rect;
-    fill_rect.x = x;
-    fill_rect.y = y;
-    fill_rect.h = h;
-    fill_rect.w = w;
-    return fill_rect;
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.h = h;
+    rect.w = w;
+    return rect;
 }

@@ -1,69 +1,48 @@
 # depslib dependency file v1.0
-1617634297 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
+1618058682 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
 	"draw.h"
-	"render.h"
 
-1617634297 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
-	<iostream>
-	"draw.h"
+1618057848 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
 	"game.h"
-	"render.h"
 
-1617624617 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
+1618058239 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
 	<iostream>
-	<SDL.h>
-	<SDL_ttf.h>
-	"utils.h"
 	"game.h"
-	"render.h"
 	"menu.h"
 
-1617349362 source:c:\users\dtd\documents\c++ cb\2048\render.cpp
+1618058181 source:c:\users\dtd\documents\c++ cb\2048\render.cpp
 	"render.h"
-	"utils.h"
-	<SDL.h>
-	<SDL_image.h>
 
-1617351769 c:\users\dtd\documents\c++ cb\2048\render.h
+1618058472 c:\users\dtd\documents\c++ cb\2048\render.h
+	<SDL_image.h>
 	<SDL.h>
 	<string>
-
-1617430846 source:c:\users\dtd\documents\c++ cb\2048\utils.cpp
-	"render.h"
 	"utils.h"
 
-1617347235 c:\users\dtd\documents\c++ cb\2048\utils.h
+1618058343 source:c:\users\dtd\documents\c++ cb\2048\utils.cpp
+	"utils.h"
+
+1618058343 c:\users\dtd\documents\c++ cb\2048\utils.h
 	<iostream>
+	"render.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_image.h>
 
-1617634297 c:\users\dtd\documents\c++ cb\2048\draw.h
-	<iostream>
-	<stdio.h>
+1618058343 c:\users\dtd\documents\c++ cb\2048\draw.h
 	<string>
-	<SDL.h>
-	<SDL_ttf.h>
 	"utils.h"
 
-1617624338 c:\users\dtd\documents\c++ cb\2048\game.h
-	<iostream>
-	<SDL.h>
+1618057987 c:\users\dtd\documents\c++ cb\2048\game.h
 	<stdlib.h>
-	<stdio.h>
 	<time.h>
 	"draw.h"
 	"menu.h"
 
-1617623869 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
+1618058768 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
 	"menu.h"
-	<string>
 
-1617623537 c:\users\dtd\documents\c++ cb\2048\menu.h
-	<iostream>
-	<SDL_ttf.h>
-	<SDL.h>
+1618058682 c:\users\dtd\documents\c++ cb\2048\menu.h
 	"render.h"
-	"utils.h"
 	"draw.h"
 

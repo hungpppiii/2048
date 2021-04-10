@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <string>
 
 Menu::Menu()
 {
@@ -8,6 +7,7 @@ Menu::Menu()
      menuItem[1] = "EXIT";
      pointItem[0] = "POINT : ";
      pointItem[1] = "HIGH SCORE : ";
+     title = "2048";
 }
 
 Menu::~Menu(){}
@@ -17,27 +17,22 @@ void Menu::drawMenuText(const int &i, const int &color)
     draw.drawText(menuItem[i], color, dsRect[i], 90);
 }
 
-void Menu::drawPointText(const string &point, const string &highScore)
+void Menu::drawGameMenu(const string &point, const string &highScore)
 {
     string text[2] = {pointItem[0] + point, pointItem[1] + highScore};
     for(int i = 0; i < 2; i++)
     {
         draw.drawText(text[i], 0, point_rect[i], 60);
+        draw.drawText(menuItem[i], 0, dsRect[i], 90);
     }
+    draw.drawText(title, 1, title_rect, 150);
+
 }
 
-void Menu::point()
-{
-    for(int i = 0; i < 2; i++)
-    {
-        point_rect[i].x = SCREEN_WIDTH * 3 / 4;
-        point_rect[i].y = SCREEN_HEIGHT / 6 + i * SCREEN_HEIGHT / 12;
-    }
-}
 
 void Menu::backgroundMenu()
 {
-    SDL_Texture* bkgMenu = g_render.loadTexturePath("picture//bkg.jpg");
+    SDL_Texture* bkgMenu = g_render.loadTexturePath("picture//bkg2048.jpg");
     SDL_Rect fill_rect = draw.setRect(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
     g_render.copyTex(bkgMenu, &fill_rect);
     SDL_DestroyTexture(bkgMenu);
@@ -45,13 +40,14 @@ void Menu::backgroundMenu()
 
 void Menu::mainMenu()
 {
-    //gán tạo độ cho từng item, lấy tọa độ mới
-    for(int i = 0; i < soItem; i++)
-    {
-        dsRect[i].x = SCREEN_WIDTH / 2;
-        dsRect[i].y = SCREEN_HEIGHT / 6 + i * (SCREEN_HEIGHT / 4 * 3) / soItem;
-        rect[i] = draw.drawText(menuItem[i], 0, dsRect[i], 90);
-    }
+        dsRect[0].x = SCREEN_WIDTH * 2.1 / 3;
+        dsRect[0].y = SCREEN_HEIGHT / 2.9;
+        rect[0] = draw.drawText(menuItem[0], 0, dsRect[0], 90);
+
+        dsRect[1].x = SCREEN_WIDTH / 10;
+        dsRect[1].y = SCREEN_HEIGHT / 1.9;
+        rect[1] = draw.drawText(menuItem[1], 0, dsRect[1], 90);
+
 }
 
 void Menu::gameMenu()
@@ -59,18 +55,16 @@ void Menu::gameMenu()
     //gán tạo độ cho từng item, lấy tọa độ mới
     for(int i = 0; i < soItem; i++)
     {
-        dsRect[i].x = SCREEN_WIDTH * 3 / 4;
+        dsRect[i].x = SCREEN_WIDTH * 2 / 3 + i * SCREEN_WIDTH / 16;
         dsRect[i].y = SCREEN_HEIGHT * 4 / 9 + i * (SCREEN_HEIGHT / 5);
 
         rect[i] = draw.drawText(menuItem[i], 0, dsRect[i], 90);
-    }
-    /*for(int i = soItem - 2; i < soItem; i++)
-    {
-        dsRect[i].x = SCREEN_WIDTH * 3 / 4;
-        dsRect[i].y = SCREEN_HEIGHT / 4 + (i - 2) * (SCREEN_HEIGHT / 3) / (soItem);
-        rect[i] = draw.drawText(menuItem[i], 0, dsRect[i], 60);
-    }*/
 
+        point_rect[i].x = SCREEN_WIDTH * 2 / 3;
+        point_rect[i].y = SCREEN_HEIGHT / 5 + i * SCREEN_HEIGHT / 12;
+    }
+    title_rect.x = SCREEN_WIDTH * 2.1 / 3;
+    title_rect.y = -20;
 }
 
 

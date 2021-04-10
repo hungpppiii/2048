@@ -1,7 +1,5 @@
 #include "render.h"
-#include "utils.h"
-#include <SDL.h>
-#include <SDL_image.h>
+
 
 Render g_render;
 
