@@ -2,8 +2,7 @@
 
 void Game::startGame()
 {
-    mangInRa[0][3] = 1024;
-    mangInRa[0][2] = 1024;
+    getHighScore();
     menu.gameMenu();
 
     drawTable();
@@ -49,7 +48,6 @@ void Game::startGame()
                             right(check);
                             break;
                         }
-                        break;;
                     case SDLK_LEFT:
                         {
                             left(check);
@@ -72,7 +70,7 @@ void Game::startGame()
 
                             //khoi tao them so
                             khoiTaoThemSo();
-                            if(diem >= 0 * 9216){
+                            if(diem >= 9216){
                                 if( winGame() ){
                                     draw.gameOver_WinGame(true);
 
@@ -133,7 +131,11 @@ void Game::startGame()
                                 select[i] = true;
                             }
                             else
+                            {
+                                saveHighScore();
                                 return;
+                            }
+
                         }
                     }
                 }
@@ -181,9 +183,51 @@ void Game::restart()
     khoiTaoBanDau();
 }
 
+void Game::getHighScore()
+{
+    fstream file;
+    file.open("C:\\Users\\DTD\\Documents\\c++ cb\\2048\\file\\highScore.txt", ios::in);
+    if(file.is_open())
+    {
+        if(file.eof())
+        {
+            file.close();
+            return;
+        }
+        else
+        {
+            string line;
+            while(getline(file, line))
+            {
+                highScore = stoi(line);
+            }
+        }
+    }
+    else
+    {
+        cout << "not open file highScore.txt" << endl;
+    }
+    file.close();
+}
+
+void Game::saveHighScore()
+{
+    ofstream file;
+    file.open("C:\\Users\\DTD\\Documents\\c++ cb\\2048\\file\\highScore.txt");
+    if(file.is_open())
+    {
+        file << highScore;
+    }
+    else
+        cout << "not open file highScore.txt" << endl;
+    file.close();
+}
+
+
 //++++++++++++++++++++++++++++++++++++++++
 void Game::left(bool &check)
 {
+    diemCong = 0;
     for(int i = 0; i < 4; i++){
         int j = 0;
         hamLeft_Right(i, j, 1, check);
@@ -192,6 +236,7 @@ void Game::left(bool &check)
 
 void Game::right(bool &check)
 {
+    diemCong = 0;
     for(int i = 0; i < 4; i++){
         int j = 3;
         hamLeft_Right(i, j, -1, check);
@@ -200,6 +245,7 @@ void Game::right(bool &check)
 
 void Game::up(bool &check)
 {
+    diemCong = 0;
     for(int j = 0; j < 4; j++){
         int i = 0;
         hamUp_Down(i, j, 1, check);
@@ -208,6 +254,7 @@ void Game::up(bool &check)
 
 void Game::down(bool &check)
 {
+    diemCong = 0;
     for(int j = 0; j < 4; j++){
         int i = 3;
         hamUp_Down(i, j, -1, check);

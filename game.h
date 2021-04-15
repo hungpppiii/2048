@@ -1,6 +1,7 @@
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
 
+#include <fstream>
 #include <stdlib.h>
 #include <time.h>
 #include "draw.h"
@@ -14,6 +15,8 @@ public:
     bool winGame();
     bool endGame();
     void restart();
+    void getHighScore();
+    void saveHighScore();
 
     void left(bool &check);
     void right(bool &check);
@@ -30,7 +33,7 @@ public:
     void khoiTaoThemSo();
 private:
     int mangInRa[4][4] = {0};
-    int highScore = 100; //.................
+    int highScore = 0;
     int diem = 0;
     int diemCong = 0;
     Draw draw;
