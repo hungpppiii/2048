@@ -67,9 +67,9 @@ void Draw::background()
     g_render.clears();
 
     g_render.setColor(255, 255, 102, 255);
-    /*int h_w = dienTich * cell_num;
+    int h_w = dienTich * cell_num;
     SDL_Rect filled_rect = setRect(leTrai, leTren, h_w, h_w);
-    g_render.fillRect(filled_rect);*/
+    g_render.fillRect(filled_rect);
 
     table();
     menuTable();
@@ -104,12 +104,12 @@ void Draw::drawSquare(const int &so, const int &y, const int &x)
     SDL_Rect rect = setRect(leTrai + dienTich * x + 1, leTren + dienTich * y + 1, h_w, h_w) ;
     switch(so)
     {
-    case 0:
+    /*case 0:
         {
             g_render.setColor(255, 255, 102, 255);
             g_render.fillRect(rect);
             return;
-        }
+        }*/
     case 2:
         {
             image = g_render.loadTexturePath("picture//2.jpg");

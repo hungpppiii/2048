@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1618058785 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
+1618587199 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
 	"draw.h"
 
-1618508805 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
+1618587199 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
 	"game.h"
 
-1618058239 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
+1618585789 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
 	<iostream>
 	"game.h"
 	"menu.h"
@@ -33,10 +33,10 @@
 	<string>
 	"utils.h"
 
-1618508665 c:\users\dtd\documents\c++ cb\2048\game.h
-	<fstream>
+1618589560 c:\users\dtd\documents\c++ cb\2048\game.h
 	<stdlib.h>
 	<time.h>
+	<fstream>
 	"draw.h"
 	"menu.h"
 

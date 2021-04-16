@@ -1,148 +1,13 @@
 #include "game.h"
 
-void Game::startGame()
+Game::Game()
 {
-    getHighScore();
     menu.gameMenu();
-
-    drawTable();
-    khoiTaoBanDau();
-
-    bool check;
-    bool select[2] = {false};
-    while(true)
-    {
-        //khi bảng đầy thì kiểm tra xem đã end game chưa
-        if(viTriTrong() == 0){
-            if(endGame()){
-                draw.gameOver_WinGame(false);
-            }
-        }
-
-        SDL_Event e;
-        // kiểm tra xem có sự kiện bàn phím không
-        while(SDL_PollEvent(&e) != 0)
-        {
-            switch (e.type)
-            {
-            case SDL_QUIT:
-                return;
-            case SDL_KEYDOWN:
-                {
-                    diemCong = 0;
-                    check = false;
-                    switch(e.key.keysym.sym)
-                    {
-                    case SDLK_UP:
-                        {
-                            up(check);
-                            break;
-                        }
-                    case SDLK_DOWN:
-                        {
-                            down(check);
-                            break;
-                        }
-                    case SDLK_RIGHT:
-                        {
-                            right(check);
-                            break;
-                        }
-                    case SDLK_LEFT:
-                        {
-                            left(check);
-                            break;
-                        }
-                    }
-
-                    // check xem bảng có thay đổi sau khi nhấn phím
-                    // thay đổi thì tạo thêm số
-                    if(check){
-                        //check xem thắng chưa
-                        // 9 * 1024 = 9216
-                        if(diemCong > 0){
-                            diem += diemCong;
-                            if(diem > highScore)
-                            {
-                                highScore = diem;
-                            }
-                            drawTable();
-
-                            //khoi tao them so
-                            khoiTaoThemSo();
-                            if(diem >= 9216){
-                                if( winGame() ){
-                                    draw.gameOver_WinGame(true);
-
-                                    if(menu.mouseEvent() == 0)
-                                        restart();
-                                    else
-                                        return;
-                                }
-                            }
-                        }
-                        else {
-                            drawTable();
-                            //khoi tao them so
-                            khoiTaoThemSo();
-                        }
-                    }
-
-                }
-            case SDL_MOUSEMOTION:
-                {
-                    int x = e.motion.x;
-                    int y = e.motion.y;
-
-                    for(int i = 0; i < 2; i++)
-                    {
-                        if(menu.check(x, y, i))
-                        {
-                            if(select[i]){
-                                select[i] = false;
-                                menu.drawMenuText(i, 1);
-                                g_render.present();
-                            }
-                        }
-                        else
-                        {
-                            if(select[i] == false)
-                            {
-                                select[i] = true;
-                                menu.drawMenuText(i, 0);
-                                g_render.present();
-                            }
-                        }
-                    }
-                break;
-                }
-            case SDL_MOUSEBUTTONDOWN:
-                {
-                    int x = e.motion.x;
-                    int y = e.motion.y;
-
-                    for(int i = 0; i < 2; i++)
-                    {
-                    if(menu.check(x, y, i))
-                        {
-                            if(i == 0)
-                            {
-                                restart();
-                                select[i] = true;
-                            }
-                            else
-                            {
-                                saveHighScore();
-                                return;
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-    }
+    diem = 0;
+    diemCong = 0;
 }
+
+Game::~Game(){}
 
 bool Game::winGame()
 {
@@ -205,7 +70,7 @@ void Game::getHighScore()
     }
     else
     {
-        cout << "not open file highScore.txt" << endl;
+        cout << "error open file highScore.txt" << endl;
     }
     file.close();
 }
@@ -219,10 +84,43 @@ void Game::saveHighScore()
         file << highScore;
     }
     else
-        cout << "not open file highScore.txt" << endl;
+        cout << "error open file highScore.txt" << endl;
     file.close();
 }
 
+bool Game::getPoint_CheckWin()
+{
+    if(diemCong > 0){
+        diem += diemCong;
+        if(diem > highScore)
+        {
+            highScore = diem;
+        }
+        drawTable();
+        //check xem thắng chưa
+        // 9 * 1024 = 9216
+        if(diem >= 9216){
+            if( winGame() ){
+                draw.gameOver_WinGame(true);
+
+                if(menu.mouseEvent() == 0)
+                    restart();
+                else
+                    return false;
+            }
+            else
+                khoiTaoThemSo();
+        }
+        else
+            khoiTaoThemSo();
+    }
+    else {
+        drawTable();
+        //khoi tao them so
+        khoiTaoThemSo();
+    }
+    return true;
+}
 
 //++++++++++++++++++++++++++++++++++++++++
 void Game::left(bool &check)
