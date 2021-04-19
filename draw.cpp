@@ -8,6 +8,7 @@ Draw::Draw()
     leTrai = SCREEN_WIDTH / 20;
     leTren = 1.5 * leTrai;
     dienTich = (SCREEN_HEIGHT - 2 * leTrai) / cell_num;
+    bkg = g_render.loadTexturePath("picture//bggame.png");
 }
 Draw::~Draw()
 {
@@ -16,23 +17,30 @@ Draw::~Draw()
         TTF_CloseFont(font);
         font = NULL;
     }
+    if(bkg != NULL)
+    {
+        SDL_DestroyTexture(bkg);
+    }
 }
 
 void Draw::gameOver_WinGame(const bool &win)
 {
-    SDL_Rect game_rect;
-    game_rect.x = leTrai * 3;
-    game_rect.y = leTren / 6;
+    SDL_Texture* image = NULL;
+    SDL_Rect rect;
     if(win)
-        drawText("VICTORY!!!", 0, game_rect, 90);
+    {
+        image = g_render.loadTexturePath("picture//WinGame.png");
+        rect = setRect(leTrai + dienTich * 0.5, leTren + dienTich * 1.5, dienTich, 3 * dienTich);
+        g_render.copyTex(image, &rect);
+    }
     else
-        drawText("GAME OVER!!!", 0, game_rect, 90);
-        g_render.present();
-}
-
-void Draw::setFont(const string &path, const int &sizeFont)
-{
-    font = TTF_OpenFont(path.c_str(), sizeFont);
+    {
+        image = g_render.loadTexturePath("picture//GameOver.png");
+        rect = setRect(leTrai + dienTich * 0.05, leTren + dienTich * 1.5, dienTich, 4 * dienTich);
+        g_render.copyTex(image, &rect);
+    }
+    g_render.present();
+    SDL_DestroyTexture(image);
 }
 
 
@@ -41,7 +49,7 @@ SDL_Rect Draw::drawText(const string &path, const int &i,
 {
     SDL_Surface* surface = NULL;
     SDL_Texture* texture = NULL;
-    setFont("QueenieSans.ttf", sizeText); //...............................................
+    font = TTF_OpenFont("fonts//SF Atarian System.ttf", sizeText);
     surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
     texture = g_render.loadTextureSurface(surface);
     SDL_FreeSurface(surface);
@@ -63,39 +71,9 @@ SDL_Rect Draw::drawText(const string &path, const int &i,
 
 void Draw::background()
 {
-    g_render.setColor(153, 255, 255, 255);
-    g_render.clears();
-
-    g_render.setColor(255, 255, 102, 255);
-    int h_w = dienTich * cell_num;
-    SDL_Rect filled_rect = setRect(leTrai, leTren, h_w, h_w);
-    g_render.fillRect(filled_rect);
-
-    table();
-    menuTable();
+    SDL_Rect rect = setRect(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+    g_render.copyTex(bkg, &rect);
 }
-
-void Draw::table()
-{
-    //g_render.setColor(255, 253, 208, 255);
-    SDL_Rect rect;
-    g_render.setColor(0, 0, 0, 255);
-    for(int row = 0; row < cell_num; row++){
-        for(int col = 0; col < cell_num; col++){
-            rect = setRect(leTrai + dienTich * row, leTren + dienTich * col, dienTich, dienTich);
-            g_render.drawRect(rect);
-        }
-    }
-}
-
-void Draw::menuTable()
-{
-    SDL_Rect fill_rect;
-    g_render.setColor(255, 253, 208, 255);
-    fill_rect = setRect(leTrai + dienTich * (cell_num + 1.2), leTren, dienTich * cell_num, dienTich * 3);
-    g_render.fillRect(fill_rect);
-}
-
 
 void Draw::drawSquare(const int &so, const int &y, const int &x)
 {
@@ -104,12 +82,6 @@ void Draw::drawSquare(const int &so, const int &y, const int &x)
     SDL_Rect rect = setRect(leTrai + dienTich * x + 1, leTren + dienTich * y + 1, h_w, h_w) ;
     switch(so)
     {
-    /*case 0:
-        {
-            g_render.setColor(255, 255, 102, 255);
-            g_render.fillRect(rect);
-            return;
-        }*/
     case 2:
         {
             image = g_render.loadTexturePath("picture//2.jpg");
@@ -169,9 +141,8 @@ void Draw::drawSquare(const int &so, const int &y, const int &x)
 
     // đưa ảnh từ texture vào màn hình, ảnh co dãn theo kich thuoc
     g_render.copyTex(image, &rect);
-    //cập nhật thay đổi lên màn hình
+    //hủy texture
     SDL_DestroyTexture(image);
-    //SDL_RenderPresent(renderer);
 }
 
 SDL_Rect Draw::setRect(const int &x, const int &y, const int &h, const int &w)

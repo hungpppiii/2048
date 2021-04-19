@@ -19,8 +19,8 @@ public:
 private:
     Draw draw;
     int soItem;
-    string menuItem[2], pointItem[2], title;
-    SDL_Rect dsRect[2], rect[2], point_rect[2], title_rect;
+    string menuItem[2], pointItem[2];
+    SDL_Rect dsRect[2], rect[2], point_rect[2];
 };
 
 #endif // MENU_H_INCLUDED

@@ -26,6 +26,8 @@ int main(int argc, char* argv[])
         //khoi tao 2 soban dau cho game
         game.khoiTaoBanDau();
 
+
+
         bool check, gameContinue = true;
         bool select[2] = {false};
         SDL_Event e;

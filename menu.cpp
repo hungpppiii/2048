@@ -7,7 +7,6 @@ Menu::Menu()
      menuItem[1] = "EXIT";
      pointItem[0] = "POINT : ";
      pointItem[1] = "HIGH SCORE : ";
-     title = "2048";
 }
 
 Menu::~Menu(){}
@@ -22,10 +21,9 @@ void Menu::drawGameMenu(const string &point, const string &highScore)
     string text[2] = {pointItem[0] + point, pointItem[1] + highScore};
     for(int i = 0; i < 2; i++)
     {
-        draw.drawText(text[i], 0, point_rect[i], 60);
+        draw.drawText(text[i], 0, point_rect[i], 50);
         draw.drawText(menuItem[i], 0, dsRect[i], 90);
     }
-    draw.drawText(title, 1, title_rect, 150);
 
 }
 
@@ -63,8 +61,6 @@ void Menu::gameMenu()
         point_rect[i].x = SCREEN_WIDTH * 2 / 3;
         point_rect[i].y = SCREEN_HEIGHT / 5 + i * SCREEN_HEIGHT / 12;
     }
-    title_rect.x = SCREEN_WIDTH * 2.1 / 3;
-    title_rect.y = -20;
 }
 
 

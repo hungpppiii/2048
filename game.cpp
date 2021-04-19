@@ -51,7 +51,7 @@ void Game::restart()
 void Game::getHighScore()
 {
     fstream file;
-    file.open("C:\\Users\\DTD\\Documents\\c++ cb\\2048\\file\\highScore.txt", ios::in);
+    file.open("file\\highScore.txt", ios::in);
     if(file.is_open())
     {
         if(file.eof())
@@ -78,7 +78,7 @@ void Game::getHighScore()
 void Game::saveHighScore()
 {
     ofstream file;
-    file.open("C:\\Users\\DTD\\Documents\\c++ cb\\2048\\file\\highScore.txt");
+    file.open("file\\highScore.txt");
     if(file.is_open())
     {
         file << highScore;
@@ -101,8 +101,12 @@ bool Game::getPoint_CheckWin()
         // 9 * 1024 = 9216
         if(diem >= 9216){
             if( winGame() ){
-                draw.gameOver_WinGame(true);
-
+                //draw you win lên màn hình
+                for(int i = 0; i < 50; i++)
+                {
+                    draw.gameOver_WinGame(true);
+                }
+                //check sự kiện chuột
                 if(menu.mouseEvent() == 0)
                     restart();
                 else
