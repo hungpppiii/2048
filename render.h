@@ -6,6 +6,8 @@
 #include <string>
 #include "utils.h"
 
+using namespace std;
+
 class Render
 {
 public:
@@ -13,11 +15,10 @@ public:
     void setColor(int r, int g, int b, int a);
     void present();
     void clears();
-    void fillRect(SDL_Rect &fillRect);
-    void drawRect(SDL_Rect &fillRect);
-    void copyTex(SDL_Texture* texture, const SDL_Rect* srcRect, const SDL_Rect* dsRect);
+    //void drawFillRect(SDL_Rect &fillRect);
+    //void drawRect(SDL_Rect &fillRect);
     void copyTex(SDL_Texture* texture, const SDL_Rect* dsRect);
-    SDL_Texture* loadTexturePath(const std::string &file);
+    SDL_Texture* loadTexturePath(const string &file);
     SDL_Texture* loadTextureSurface(SDL_Surface* surface);
 
 private:

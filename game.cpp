@@ -38,13 +38,13 @@ bool Game::endGame()
     return true;
 }
 
-void Game::restart()
+void Game::restart(const bool &music)
 {
     for (int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
             mangInRa[i][j] = 0;
     diem = 0;
-    drawTable();
+    drawTable(music);
     khoiTaoBanDau();
 }
 
@@ -88,7 +88,7 @@ void Game::saveHighScore()
     file.close();
 }
 
-bool Game::getPoint_CheckWin()
+bool Game::getPoint_CheckWin(bool &music)
 {
     if(diemCong > 0){
         diem += diemCong;
@@ -96,19 +96,22 @@ bool Game::getPoint_CheckWin()
         {
             highScore = diem;
         }
-        drawTable();
+        drawTable(music);
         //check xem thắng chưa
         // 9 * 1024 = 9216
         if(diem >= 9216){
             if( winGame() ){
+                if(music){
+                    menu.playSoundEffect(3);
+                }
                 //draw you win lên màn hình
                 for(int i = 0; i < 50; i++)
                 {
                     draw.gameOver_WinGame(true);
                 }
                 //check sự kiện chuột
-                if(menu.mouseEvent() == 0)
-                    restart();
+                if(menu.mouseEvent(music) == 0)
+                    restart(music);
                 else
                     return false;
             }
@@ -119,7 +122,7 @@ bool Game::getPoint_CheckWin()
             khoiTaoThemSo();
     }
     else {
-        drawTable();
+        drawTable(music);
         //khoi tao them so
         khoiTaoThemSo();
     }
@@ -234,7 +237,7 @@ void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
 }
 
 // vẽ lại bảng sau khi nhấn phím
-void Game::drawTable()
+void Game::drawTable(const bool &music)
 {
     draw.background();
     menu.drawGameMenu(to_string(diem), to_string(highScore));
@@ -243,6 +246,7 @@ void Game::drawTable()
             draw.drawSquare(mangInRa[i][j], i, j);
         }
     }
+    menu.iconSound(music);
     g_render.present();
 }
 
@@ -270,6 +274,7 @@ bool Game::viTriTrong()
     }
     return false;
 }
+
 //khơi tạo thêm gia trị cho mang
 void Game::khoiTaoThemSo()
 {

@@ -2,14 +2,62 @@
 
 Menu::Menu()
 {
-     soItem = 2;
-     menuItem[0] = "NEW GAME";
-     menuItem[1] = "EXIT";
-     pointItem[0] = "POINT : ";
-     pointItem[1] = "HIGH SCORE : ";
+    soItem = 2;
+    menuItem[0] = "NEW GAME";
+    menuItem[1] = "EXIT";
+    pointItem[0] = "POINT : ";
+    pointItem[1] = "HIGH SCORE : ";
+
+    music_rect.x = SCREEN_WIDTH * 5.1 / 6;
+    music_rect.y = SCREEN_HEIGHT / 35;
+    music_rect.w = SCREEN_HEIGHT / 10;
+    music_rect.h = music_rect.w;
+
+    moveGame = Mix_LoadWAV("music//move.wav");
+    click = Mix_LoadWAV("music//click.wav");
+    if(moveGame == NULL || click == NULL)
+    logSDLError(cout, "loadWAV");
+    music = Mix_LoadMUS("music//beat_2048.wav");
+    if(music == NULL)
+    logSDLError(cout, "loadMUSIC");
 }
 
 Menu::~Menu(){}
+
+void Menu::playMusic()
+{
+    Mix_PlayMusic(music, -1);
+}
+
+void Menu::playSoundEffect(const int &i)
+{
+    switch(i)
+        {
+        case 0:
+            {
+                Mix_PlayChannel(-1, moveGame, 0);
+                break;
+            }
+        case 1:
+            {
+                Mix_PlayChannel(-1, click, 0);
+                break;
+            }
+        case 2:
+            {
+                gameOver = Mix_LoadWAV("music//lose.wav");
+                Mix_PlayChannel(-1, gameOver, 0);
+                break;
+            }
+        case 3:
+            {
+                winGame = Mix_LoadWAV("music//win.wav");
+                Mix_PlayChannel(-1, winGame, 0);
+                break;
+            }
+        }
+
+}
 
 void Menu::drawMenuText(const int &i, const int &color)
 {
@@ -36,15 +84,37 @@ void Menu::backgroundMenu()
     SDL_DestroyTexture(bkgMenu);
 }
 
+void Menu::iconSound(const bool &music)
+{
+    SDL_Texture* icon;
+    if(music)
+    {
+        icon = g_render.loadTexturePath("picture//on.png");
+    }
+    else
+    {
+        icon = g_render.loadTexturePath("picture//off.png");
+    }
+    g_render.copyTex(icon, &music_rect);
+    SDL_DestroyTexture(icon);
+}
+
+bool Menu::checkPlayMusic(const int &x, const int &y)
+{
+    if(x >= music_rect.x && x <= (music_rect.x + music_rect.w) && y >= music_rect.y && y <= (music_rect.y + music_rect.h))
+        return 1;
+    return 0;
+}
+
 void Menu::mainMenu()
 {
-        dsRect[0].x = SCREEN_WIDTH * 2.1 / 3;
-        dsRect[0].y = SCREEN_HEIGHT / 2.9;
-        rect[0] = draw.drawText(menuItem[0], 0, dsRect[0], 90);
+    dsRect[0].x = SCREEN_WIDTH * 2.1 / 3;
+    dsRect[0].y = SCREEN_HEIGHT / 2.9;
+    rect[0] = draw.drawText(menuItem[0], 0, dsRect[0], 90);
 
-        dsRect[1].x = SCREEN_WIDTH / 10;
-        dsRect[1].y = SCREEN_HEIGHT / 1.9;
-        rect[1] = draw.drawText(menuItem[1], 0, dsRect[1], 90);
+    dsRect[1].x = SCREEN_WIDTH / 10;
+    dsRect[1].y = SCREEN_HEIGHT / 1.9;
+    rect[1] = draw.drawText(menuItem[1], 0, dsRect[1], 90);
 
 }
 
@@ -64,8 +134,10 @@ void Menu::gameMenu()
 }
 
 
-int Menu::mouseEvent()
+int Menu::mouseEvent(bool &music)
 {
+    iconSound(music);
+    g_render.present();
     //xử lý sự kiện chuột
     SDL_Event e;
     bool select[soItem] = {false};
@@ -114,9 +186,20 @@ int Menu::mouseEvent()
                     {
                         if(check(x, y, i))
                         {
+                            //âm thanh click chuột
+                            if(music)
+                            {
+                                playSoundEffect(1);
+                            }
                             return i;
                         }
                     }
+                    if(checkPlayMusic(x, y))
+                           {
+                                music = !music;
+                                iconSound(music);
+                                g_render.present();
+                           }
 
                 }
             }

@@ -8,6 +8,7 @@ Draw::Draw()
     leTrai = SCREEN_WIDTH / 20;
     leTren = 1.5 * leTrai;
     dienTich = (SCREEN_HEIGHT - 2 * leTrai) / cell_num;
+    //load ảnh background của game
     bkg = g_render.loadTexturePath("picture//bggame.png");
 }
 Draw::~Draw()
@@ -53,18 +54,13 @@ SDL_Rect Draw::drawText(const string &path, const int &i,
     surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
     texture = g_render.loadTextureSurface(surface);
     SDL_FreeSurface(surface);
-    SDL_Rect srcRect, dsRect = rect;
+
+    SDL_Rect dsRect = rect;
     //trả về size của text
-    TTF_SizeText(font, path.c_str(), &srcRect.w, &srcRect.h);
-    srcRect.x = 0;
-    srcRect.y = 0;
-
-    dsRect.h = srcRect.h;
-    dsRect.w = srcRect.w;
-
-    g_render.copyTex(texture, &srcRect, &dsRect);
-
-    //giải phóng
+    TTF_SizeText(font, path.c_str(), &dsRect.w, &dsRect.h);
+    //copy texture vào màn hình
+    g_render.copyTex(texture, &dsRect);
+    //giải phóng texture
     SDL_DestroyTexture(texture);
     return dsRect;
 }

@@ -11,24 +11,31 @@ int main(int argc, char* argv[])
     Game game;
     Draw draw;
     Menu menu;
+    bool music = true;
 
     menu.backgroundMenu();
     //lay toa do cho cac item cua menu bat dau
     menu.mainMenu();
+    //play nhạc game
+    /*if(music)
+    {
+        //menu.playMusic();
+    }*/
 
-    if(menu.mouseEvent() == 0)
+    if(menu.mouseEvent(music) == 0)
     {
         game.getHighScore();
         //lay toa do cho cac item cua menu trong game
         menu.gameMenu();
         //ve lai man hinh
-        game.drawTable();
+        game.drawTable(music);
         //khoi tao 2 soban dau cho game
         game.khoiTaoBanDau();
 
 
-
         bool check, gameContinue = true;
+        //tạo biến để tránh lặp music ở game over
+        bool loopMusic = true;
         bool select[2] = {false};
         SDL_Event e;
         while(gameContinue)
@@ -36,6 +43,10 @@ int main(int argc, char* argv[])
             //khi bảng đầy thì kiểm tra xem đã end game chưa
             if(game.viTriTrong() == 0){
                 if(game.endGame()){
+                    if(music && loopMusic){
+                        loopMusic =  false;
+                        menu.playSoundEffect(2);
+                    }
                     draw.gameOver_WinGame(false);
                 }
             }
@@ -79,8 +90,13 @@ int main(int argc, char* argv[])
 
                         // check xem bảng có thay đổi sau khi nhấn phím
                         // thay đổi thì tạo thêm số
-                        if(check){
-                            if(!game.getPoint_CheckWin())
+                        if(check)
+                        {
+                            if(music)
+                            {
+                                menu.playSoundEffect(0);
+                            }
+                            if(!game.getPoint_CheckWin(music))
                             {
                                 gameContinue = false;
                                 break;
@@ -122,27 +138,41 @@ int main(int argc, char* argv[])
 
                         for(int i = 0; i < 2; i++)
                         {
-                        if(menu.check(x, y, i))
-                            {
-                                if(i == 0)
+                            if(menu.check(x, y, i))
                                 {
-                                    game.restart();
-                                    select[i] = true;
-                                }
-                                else
-                                {
-                                    gameContinue = false;
-                                    break;
-                                }
-
+                                    //âm thanh click chuột
+                                    if(music)
+                                        {
+                                            menu.playSoundEffect(1);
+                                        }
+                                    if(i == 0)
+                                    {
+                                        loopMusic = true;
+                                        game.restart(music);
+                                        select[i] = true;
+                                    }
+                                    else
+                                    {
+                                        gameContinue = false;
+                                        break;
+                                    }
                             }
+
                         }
+                        if(menu.checkPlayMusic(x, y))
+                           {
+                                music = !music;
+                                menu.iconSound(music);
+                                g_render.present();
+                           }
                     }
                 }
             }
         }
         game.saveHighScore();
     }
+    //dừng để nghe âm click
+    SDL_Delay(200);
     quitSDL();
     return 0;
 }
