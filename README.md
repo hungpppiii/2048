@@ -22,17 +22,19 @@
 
 -các hàm trong game
 +utils.cpp
-  logSDLError() : báo lỗi
-  initSDL() : khởi tạo SDL cho game
-  quitSDL() : thoát khỏi SDL
+
+    void logSDLError() : báo lỗi
+    void initSDL() : khởi tạo SDL cho game
+    void quitSDL() : thoát khỏi SDL
  +game.cpp
+ 
     bool winGame() : kiểm tra đã thắng chưa
     bool endGame() : kiểm tra đã thua chưa
-    restart() : bắt đầu game mới
-    getHighScore() : nhận vào highscore từ highScore.txt
-    saveHighScore() : khi thoát game thì lưu lại highScore
-    getPoint_CheckWin() : hàm cập nhật điểm và kiểm tra xem đã thắng chưa
-    left() : di chuyển sang trái(lên, xuống, phải tương tự)
+    void restart() : bắt đầu game mới
+    void getHighScore() : nhận vào highscore từ highScore.txt
+    void saveHighScore() : khi thoát game thì lưu lại highScore
+    bool getPoint_CheckWin() : hàm cập nhật điểm và kiểm tra xem đã thắng chưa
+    void left() : di chuyển sang trái(lên, xuống, phải tương tự)
     void hamLeft_Right() : là hàm được gọi để xử lý lệnh trái hoặc phải
     void hamUp_Down() : là hàm được gọi để xử lý lệnh trái hoặc phải
     void drawScreen() : vẽ màn hình sau khi đã xử lý xong lệnh bàn phím
