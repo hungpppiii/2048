@@ -2,10 +2,10 @@
 1619103709 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
 	"draw.h"
 
-1619196250 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
+1619257607 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
 	"game.h"
 
-1619195621 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
+1619261130 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
 	<iostream>
 	"game.h"
 	"menu.h"
@@ -41,10 +41,10 @@
 	"draw.h"
 	"menu.h"
 
-1619196206 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
+1619251580 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
 	"menu.h"
 
-1619196206 c:\users\dtd\documents\c++ cb\2048\menu.h
+1619251580 c:\users\dtd\documents\c++ cb\2048\menu.h
 	"render.h"
 	"draw.h"
 

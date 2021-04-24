@@ -15,18 +15,18 @@ int main(int argc, char* argv[])
 
     menu.backgroundMenu();
     //lay toa do cho cac item cua menu bat dau
-    menu.mainMenu();
+    menu.setMainMenu();
     //play nhạc game
     /*if(music)
     {
-        //menu.playMusic();
+        menu.playMusic();
     }*/
 
     if(menu.mouseEvent(music) == 0)
     {
         game.getHighScore();
         //lay toa do cho cac item cua menu trong game
-        menu.gameMenu();
+        menu.setGameMenu();
         //ve lai man hinh
         game.drawTable(music);
         //khoi tao 2 soban dau cho game

@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    menu.gameMenu();
+    menu.setGameMenu();
     diem = 0;
     diemCong = 0;
 }
@@ -28,11 +28,11 @@ bool Game::endGame()
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
             if((mangInRa[i][j] == mangInRa[i][j+1]) || (mangInRa[i][j] == mangInRa[i+1][j])){
-                return 0;
+                return false;
             }
         }
         if((mangInRa[i][3] == mangInRa[i+1][3]) || (mangInRa[3][i] == mangInRa[3][i+1])){
-            return 0;
+            return false;
         }
     }
     return true;
@@ -172,8 +172,10 @@ void Game::down(bool &check)
 void Game::hamLeft_Right(const int &row, const int &col, const int &x, bool &check)
 {
     int n;
-    if(x == 1) n = 3;
-    else n = 0;
+    if(x == 1)
+        n = 3;
+    else
+        n = 0;
     for(int j = col + x; (j * x) <= n; j = j + x){
         //kiểm tra xem ô này có khác 0
         if(mangInRa[row][col]){
@@ -207,8 +209,10 @@ void Game::hamLeft_Right(const int &row, const int &col, const int &x, bool &che
 void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
 {
     int n;
-    if(x == 1) n = 3;
-    else n = 0;
+    if(x == 1)
+        n = 3;
+    else
+        n = 0;
     for(int i = row + x; (i * x) <= n; i = i + x){
         if(mangInRa[row][col]){
             if(mangInRa[row][col] == mangInRa[i][col]){

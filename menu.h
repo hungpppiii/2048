@@ -16,8 +16,8 @@ public:
     void backgroundMenu();
     void iconSound(const bool &music);
     bool checkPlayMusic(const int &x, const int &y);
-    void mainMenu();
-    void gameMenu();
+    void setMainMenu();
+    void setGameMenu();
     int mouseEvent(bool &music);
     bool check(int &x, int &y, const int &i);
 private:

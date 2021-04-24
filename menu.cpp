@@ -17,7 +17,7 @@ Menu::Menu()
     click = Mix_LoadWAV("music//click.wav");
     if(moveGame == NULL || click == NULL)
     logSDLError(cout, "loadWAV");
-    music = Mix_LoadMUS("music//beat_2048.wav");
+    music = Mix_LoadMUS("music//game.mp3");
     if(music == NULL)
     logSDLError(cout, "loadMUSIC");
 }
@@ -106,7 +106,7 @@ bool Menu::checkPlayMusic(const int &x, const int &y)
     return 0;
 }
 
-void Menu::mainMenu()
+void Menu::setMainMenu()
 {
     dsRect[0].x = SCREEN_WIDTH * 2.1 / 3;
     dsRect[0].y = SCREEN_HEIGHT / 2.9;
@@ -118,7 +118,7 @@ void Menu::mainMenu()
 
 }
 
-void Menu::gameMenu()
+void Menu::setGameMenu()
 {
     //gán tạo độ cho từng item, lấy tọa độ mới
     for(int i = 0; i < soItem; i++)
