@@ -19,8 +19,8 @@
 *Giải thích code trong game
 
 -game được chia modul như main.cpp, game.cpp, draw.cpp,... để xử lý các chức năng riêng trong game
-
 -các hàm trong game
+
 +utils.cpp
 
     void logSDLError() : báo lỗi
