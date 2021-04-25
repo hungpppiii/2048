@@ -2,26 +2,26 @@
 
 ---GAME 2048---
 
--Cách chơi:
+*Cách chơi:
 
-+bắt đầu game sẽ vào menu start.
-+nháy đúp chuột vào new game để bắt đầu chơi hoặc exit để thoát khỏi trò chơi.
-+nháy đúp chuột vào biểu tượng loa để tắt âm thanh trò chơi.
-+Vào game sử dụng các phím lên, xuống, trái, phải trên bàn phím để di chuyển các ô số trong bảng 4x4 của game cố gắng đạt đến 2048.
+    +bắt đầu game sẽ vào menu start.
+    +nháy đúp chuột vào new game để bắt đầu chơi hoặc exit để thoát khỏi trò chơi.
+    +nháy đúp chuột vào biểu tượng loa để tắt âm thanh trò chơi.
+    +Vào game sử dụng các phím lên, xuống, trái, phải trên bàn phím để di chuyển các ô số trong bảng 4x4 của game cố gắng đạt đến 2048.
 
--Luật chơi:
+*Luật chơi:
 
-+khi bấm phím lên, các ô số sẽ dồn lên trên cùng của bảng theo từng cột của bảng số
-+khi 2 ô gần nhau nhất có số giống nhau thì sẽ gộp lại với nhau để tạo thành số mới có giá trị gấp đôi số cũ
-+khi bảng 4x4 đầy và người chơi không có cách nào di chuyển các ô số bên trong thì kết thúc game (game over)
-+khi người chơi tạo ra được ô số 2048 thì người chơi giành chiến thắng (you win)
+    +khi bấm phím lên, các ô số sẽ dồn lên trên cùng của bảng theo từng cột của bảng số
+    +khi 2 ô gần nhau nhất có số giống nhau thì sẽ gộp lại với nhau để tạo thành số mới có giá trị gấp đôi số cũ
+    +khi bảng 4x4 đầy và người chơi không có cách nào di chuyển các ô số bên trong thì kết thúc game (game over)
+    +khi người chơi tạo ra được ô số 2048 thì người chơi giành chiến thắng (you win)
 
 *Giải thích code trong game
 
 -game được chia modul như main.cpp, game.cpp, draw.cpp,... để xử lý các chức năng riêng trong game
 -các hàm trong game
 
-+utils.h
+ +utils.h
 
     void logSDLError() : báo lỗi
     void initSDL() : khởi tạo SDL cho game
