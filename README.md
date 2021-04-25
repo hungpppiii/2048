@@ -59,7 +59,7 @@
     void backgroundMenu() : tải lên backgrond của menu start
     void iconSound() : tải lên icon âm thanh
     bool checkPlayMusic() : check tọa độ chuột, nếu ấn vào icon âm thanh thì tắt nhạc
-    void setMainMenu() : đặt tọa độ các item cho menu start
+    void setStartMenu() : đặt tọa độ các item cho menu start
     void setGameMenu() : đặt tạo độ các item cho menu game
     int mouseEvent(bool &music) : xử lý sự kiện chuột
     bool check() : check tọa độ chuột, nếu ấn vào item thì trả về true
