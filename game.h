@@ -29,7 +29,7 @@ public:
     void hamLeft_Right(const int &row, const int &col, const int &x, bool &check);
     void hamUp_Down(const int &row, const int &col, const int &x, bool &check);
 
-    void drawTable(const bool &music);
+    void drawScreen(const bool &music);
 
     void khoiTaoBanDau();
     bool viTriTrong();

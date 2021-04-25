@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 int main(int argc, char* argv[])
 {
     initSDL();
@@ -15,7 +16,7 @@ int main(int argc, char* argv[])
 
     menu.backgroundMenu();
     //lay toa do cho cac item cua menu bat dau
-    menu.setMainMenu();
+    menu.setStartMenu();
     //play nhạc game
     /*if(music)
     {
@@ -28,7 +29,7 @@ int main(int argc, char* argv[])
         //lay toa do cho cac item cua menu trong game
         menu.setGameMenu();
         //ve lai man hinh
-        game.drawTable(music);
+        game.drawScreen(music);
         //khoi tao 2 soban dau cho game
         game.khoiTaoBanDau();
 
@@ -36,7 +37,7 @@ int main(int argc, char* argv[])
         bool check, gameContinue = true;
         //tạo biến để tránh lặp music ở game over
         bool loopMusic = true;
-        bool select[2] = {false};
+        bool select[2] = {true};
         SDL_Event e;
         while(gameContinue)
         {
@@ -45,7 +46,7 @@ int main(int argc, char* argv[])
                 if(game.endGame()){
                     if(music && loopMusic){
                         loopMusic =  false;
-                        menu.playSoundEffect(2);
+                        menu.playSoundEffect(Menu::GAMEOVER);
                     }
                     draw.gameOver_WinGame(false);
                 }
@@ -94,7 +95,7 @@ int main(int argc, char* argv[])
                         {
                             if(music)
                             {
-                                menu.playSoundEffect(0);
+                                menu.playSoundEffect(Menu::MOVE);
                             }
                             if(!game.getPoint_CheckWin(music))
                             {
@@ -115,16 +116,16 @@ int main(int argc, char* argv[])
                             {
                                 if(select[i]){
                                     select[i] = false;
-                                    menu.drawMenuText(i, 1);
+                                    menu.drawMenuText(i, Draw::YELLOW);
                                     g_render.present();
                                 }
                             }
                             else
                             {
-                                if(select[i] == false)
+                                if(!select[i])
                                 {
                                     select[i] = true;
-                                    menu.drawMenuText(i, 0);
+                                    menu.drawMenuText(i, Draw::RED);
                                     g_render.present();
                                 }
                             }
@@ -143,7 +144,7 @@ int main(int argc, char* argv[])
                                     //âm thanh click chuột
                                     if(music)
                                         {
-                                            menu.playSoundEffect(1);
+                                            menu.playSoundEffect(Menu::CLICK);
                                         }
                                     if(i == 0)
                                     {

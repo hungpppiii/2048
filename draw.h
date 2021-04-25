@@ -4,15 +4,23 @@
 #include <string>
 #include "utils.h"
 
+
 class Draw
 {
 public:
+    enum
+    {
+        RED,
+        YELLOW,
+        TOTAL
+    };
+
     Draw();
     ~Draw();
 
     void gameOver_WinGame(const bool &win);
 
-    SDL_Rect drawText(const string &path, const int &i,
+    SDL_Rect drawText(const string &path, const int &colors,
                        const SDL_Rect &drect,  const int &sizeText);
     void background();
 
@@ -24,7 +32,7 @@ private:
     int dienTich;
     SDL_Texture* bkg = NULL;
     TTF_Font* font = NULL;
-    SDL_Color color[2];
+    SDL_Color color[TOTAL];
 };
 
 #endif // DRAW_H_INCLUDED

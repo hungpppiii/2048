@@ -1,16 +1,16 @@
 # depslib dependency file v1.0
-1619103709 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
+1619368537 source:c:\users\dtd\documents\c++ cb\2048\draw.cpp
 	"draw.h"
 
-1619257607 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
+1619367432 source:c:\users\dtd\documents\c++ cb\2048\game.cpp
 	"game.h"
 
-1619261130 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
+1619367432 source:c:\users\dtd\documents\c++ cb\2048\main.cpp
 	<iostream>
 	"game.h"
 	"menu.h"
 
-1619107069 source:c:\users\dtd\documents\c++ cb\2048\render.cpp
+1619366747 source:c:\users\dtd\documents\c++ cb\2048\render.cpp
 	"render.h"
 
 1619107092 c:\users\dtd\documents\c++ cb\2048\render.h
@@ -30,21 +30,21 @@
 	<SDL_image.h>
 	<SDL_mixer.h>
 
-1618850519 c:\users\dtd\documents\c++ cb\2048\draw.h
+1619368537 c:\users\dtd\documents\c++ cb\2048\draw.h
 	<string>
 	"utils.h"
 
-1619196250 c:\users\dtd\documents\c++ cb\2048\game.h
+1619284348 c:\users\dtd\documents\c++ cb\2048\game.h
 	<stdlib.h>
 	<time.h>
 	<fstream>
 	"draw.h"
 	"menu.h"
 
-1619251580 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
+1619368537 source:c:\users\dtd\documents\c++ cb\2048\menu.cpp
 	"menu.h"
 
-1619251580 c:\users\dtd\documents\c++ cb\2048\menu.h
+1619368356 c:\users\dtd\documents\c++ cb\2048\menu.h
 	"render.h"
 	"draw.h"
 

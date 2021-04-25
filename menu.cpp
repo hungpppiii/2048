@@ -29,27 +29,27 @@ void Menu::playMusic()
     Mix_PlayMusic(music, -1);
 }
 
-void Menu::playSoundEffect(const int &i)
+void Menu::playSoundEffect(const int &action)
 {
-    switch(i)
+    switch(action)
         {
-        case 0:
+        case MOVE:
             {
                 Mix_PlayChannel(-1, moveGame, 0);
                 break;
             }
-        case 1:
+        case CLICK:
             {
                 Mix_PlayChannel(-1, click, 0);
                 break;
             }
-        case 2:
+        case GAMEOVER:
             {
                 gameOver = Mix_LoadWAV("music//lose.wav");
                 Mix_PlayChannel(-1, gameOver, 0);
                 break;
             }
-        case 3:
+        case WINGAME:
             {
                 winGame = Mix_LoadWAV("music//win.wav");
                 Mix_PlayChannel(-1, winGame, 0);
@@ -59,9 +59,9 @@ void Menu::playSoundEffect(const int &i)
 
 }
 
-void Menu::drawMenuText(const int &i, const int &color)
+void Menu::drawMenuText(const int &item, const int &color)
 {
-    draw.drawText(menuItem[i], color, dsRect[i], 90);
+    draw.drawText(menuItem[item], color, dsRect[item], 90);
 }
 
 void Menu::drawGameMenu(const string &point, const string &highScore)
@@ -69,8 +69,8 @@ void Menu::drawGameMenu(const string &point, const string &highScore)
     string text[2] = {pointItem[0] + point, pointItem[1] + highScore};
     for(int i = 0; i < 2; i++)
     {
-        draw.drawText(text[i], 0, point_rect[i], 50);
-        draw.drawText(menuItem[i], 0, dsRect[i], 90);
+        draw.drawText(text[i], Draw::RED, point_rect[i], 50);
+        draw.drawText(menuItem[i], Draw::RED, dsRect[i], 90);
     }
 
 }
@@ -99,22 +99,15 @@ void Menu::iconSound(const bool &music)
     SDL_DestroyTexture(icon);
 }
 
-bool Menu::checkPlayMusic(const int &x, const int &y)
-{
-    if(x >= music_rect.x && x <= (music_rect.x + music_rect.w) && y >= music_rect.y && y <= (music_rect.y + music_rect.h))
-        return 1;
-    return 0;
-}
-
-void Menu::setMainMenu()
+void Menu::setStartMenu()
 {
     dsRect[0].x = SCREEN_WIDTH * 2.1 / 3;
     dsRect[0].y = SCREEN_HEIGHT / 2.9;
-    rect[0] = draw.drawText(menuItem[0], 0, dsRect[0], 90);
+    rect[0] = draw.drawText(menuItem[0], Draw::RED, dsRect[0], 90);
 
     dsRect[1].x = SCREEN_WIDTH / 10;
     dsRect[1].y = SCREEN_HEIGHT / 1.9;
-    rect[1] = draw.drawText(menuItem[1], 0, dsRect[1], 90);
+    rect[1] = draw.drawText(menuItem[1], Draw::RED, dsRect[1], 90);
 
 }
 
@@ -126,7 +119,7 @@ void Menu::setGameMenu()
         dsRect[i].x = SCREEN_WIDTH * 2 / 3 + i * SCREEN_WIDTH / 16;
         dsRect[i].y = SCREEN_HEIGHT * 4 / 9 + i * (SCREEN_HEIGHT / 5);
 
-        rect[i] = draw.drawText(menuItem[i], 0, dsRect[i], 90);
+        rect[i] = draw.drawText(menuItem[i], Draw::RED, dsRect[i], 90);
 
         point_rect[i].x = SCREEN_WIDTH * 2 / 3;
         point_rect[i].y = SCREEN_HEIGHT / 5 + i * SCREEN_HEIGHT / 12;
@@ -140,7 +133,7 @@ int Menu::mouseEvent(bool &music)
     g_render.present();
     //xử lý sự kiện chuột
     SDL_Event e;
-    bool select[soItem] = {false};
+    bool select[soItem] = {true};
     while(true)
     {
         g_render.present();
@@ -162,7 +155,7 @@ int Menu::mouseEvent(bool &music)
                         {
                             if(select[i]){
                                 select[i] = false;
-                                draw.drawText(menuItem[i], 1, dsRect[i], 90);
+                                draw.drawText(menuItem[i], Draw::YELLOW, dsRect[i], 90);
                             }
                         }
                         else
@@ -170,7 +163,7 @@ int Menu::mouseEvent(bool &music)
                             if(select[i] == false)
                             {
                                 select[i] = true;
-                                draw.drawText(menuItem[i], 0, dsRect[i], 90);
+                                draw.drawText(menuItem[i], Draw::RED, dsRect[i], 90);
                             }
                         }
                     }
@@ -189,7 +182,7 @@ int Menu::mouseEvent(bool &music)
                             //âm thanh click chuột
                             if(music)
                             {
-                                playSoundEffect(1);
+                                playSoundEffect(CLICK);
                             }
                             return i;
                         }
@@ -208,9 +201,18 @@ int Menu::mouseEvent(bool &music)
 }
 
 //check xem chuột có đến đúng vị trí item menu ko
-bool Menu::check(int &x, int &y, const int &i)
+bool Menu::check(int &x, int &y, const int &item)
 {
-    if(x >= rect[i].x && x <= (rect[i].x + rect[i].w) && y >= rect[i].y && y <= (rect[i].y + rect[i].h))
+    if(x >= rect[item].x && x <= (rect[item].x + rect[item].w)
+            && y >= rect[item].y && y <= (rect[item].y + rect[item].h))
+        return 1;
+    return 0;
+}
+
+bool Menu::checkPlayMusic(const int &x, const int &y)
+{
+    if(x >= music_rect.x && x <= (music_rect.x + music_rect.w)
+            && y >= music_rect.y && y <= (music_rect.y + music_rect.h))
         return 1;
     return 0;
 }

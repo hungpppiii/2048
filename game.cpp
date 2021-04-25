@@ -44,7 +44,7 @@ void Game::restart(const bool &music)
         for(int j = 0; j < 4; j++)
             mangInRa[i][j] = 0;
     diem = 0;
-    drawTable(music);
+    drawScreen(music);
     khoiTaoBanDau();
 }
 
@@ -96,13 +96,13 @@ bool Game::getPoint_CheckWin(bool &music)
         {
             highScore = diem;
         }
-        drawTable(music);
+        drawScreen(music);
         //check xem thắng chưa
         // 9 * 1024 = 9216
         if(diem >= 9216){
             if( winGame() ){
                 if(music){
-                    menu.playSoundEffect(3);
+                    menu.playSoundEffect(Menu::WINGAME);
                 }
                 //draw you win lên màn hình
                 for(int i = 0; i < 50; i++)
@@ -122,7 +122,7 @@ bool Game::getPoint_CheckWin(bool &music)
             khoiTaoThemSo();
     }
     else {
-        drawTable(music);
+        drawScreen(music);
         //khoi tao them so
         khoiTaoThemSo();
     }
@@ -241,7 +241,7 @@ void Game::hamUp_Down(const int &row, const int &col, const int &x, bool &check)
 }
 
 // vẽ lại bảng sau khi nhấn phím
-void Game::drawTable(const bool &music)
+void Game::drawScreen(const bool &music)
 {
     draw.background();
     menu.drawGameMenu(to_string(diem), to_string(highScore));

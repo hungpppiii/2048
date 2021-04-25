@@ -2,8 +2,8 @@
 
 Draw::Draw()
 {
-    color[0] = {255, 36, 0, 255};
-    color[1] = {255, 215, 0, 255};
+    color[RED] = {255, 36, 0, 255};
+    color[YELLOW] = {255, 215, 0, 255};
     cell_num = 4;
     leTrai = SCREEN_WIDTH / 20;
     leTren = 1.5 * leTrai;
@@ -45,13 +45,13 @@ void Draw::gameOver_WinGame(const bool &win)
 }
 
 
-SDL_Rect Draw::drawText(const string &path, const int &i,
+SDL_Rect Draw::drawText(const string &path, const int &colors,
                          const SDL_Rect &rect, const int &sizeText)
 {
     SDL_Surface* surface = NULL;
     SDL_Texture* texture = NULL;
     font = TTF_OpenFont("fonts//SF Atarian System.ttf", sizeText);
-    surface = TTF_RenderText_Solid(font, path.c_str(), color[i]);
+    surface = TTF_RenderText_Solid(font, path.c_str(), color[colors]);
     texture = g_render.loadTextureSurface(surface);
     SDL_FreeSurface(surface);
 
