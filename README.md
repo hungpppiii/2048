@@ -70,9 +70,9 @@
     void setColor() : đặt màu sắc cho renderer
     void present() : cập nhật thay đổi lên màn hình
     void clears() : xóa màn hình với màu sắc truyền vào
-    void copyTex(SDL_Texture* texture, const SDL_Rect* dsRect);
-    SDL_Texture* loadTexturePath(const string &file);
-    SDL_Texture* loadTextureSurface(SDL_Surface* surface);
+    void copyTex() : truyền texture vào màn hình
+    SDL_Texture* loadTexturePath() : load ảnh vào texture
+    SDL_Texture* loadTextureSurface() : load surface vào texture
    +main.cpp
    
     -gọi các hàm để hiển thị hình ảnh của game
